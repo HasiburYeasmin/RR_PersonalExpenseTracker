@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --bg-deep: #2c3333; /* Charcoal */
+  --glass: rgba(44, 51, 51, 0.7); /* Charcoal Glass */
+  --glass-border: rgba(255, 127, 80, 0.2); /* Muted Coral Edge */
+  --accent: #ff7f50; /* Coral */
+  --accent-glow: rgba(255, 127, 80, 0.2);
+  --text-primary: #f8f9fa; /* Off-White */
+  --text-secondary: #aeb5b5; /* Muted Charcoal */
+  --text-tertiary: rgba(174, 181, 181, 0.5);
+}
+
+@theme {
+  --color-bg-deep: var(--bg-deep);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-income: #ff7f50; /* Coral */
+  --color-expense: #5c636a; /* Muted Charcoal */
+  --color-accent: var(--accent);
+  --color-accent-glow: var(--accent-glow);
+}
+
+[data-theme="light"] {
+  --bg-deep: #f0f9ff;
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(14, 165, 233, 0.2);
+  --accent: #0ea5e9; /* Sky Blue */
+  --accent-glow: rgba(14, 165, 233, 0.2);
+  --text-primary: #075985;
+  --text-secondary: #0c4a6e;
+  --text-tertiary: rgba(12, 74, 110, 0.5);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-deep text-[var(--text-primary)] antialiased selection:bg-accent/30 min-h-screen w-full overflow-x-hidden transition-colors duration-500;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@utility text-muted {
+  color: var(--text-secondary);
+}
+
+@utility text-faint {
+  color: var(--text-tertiary);
+}
+
+@utility glass {
+  @apply backdrop-blur-3xl bg-glass border border-glass-border shadow-[0_8px_32px_0_rgba(0,0,0,0.4)];
+}
+
+@utility glass-card {
+  @apply glass rounded-[2rem] sm:rounded-[2.5rem] p-4 sm:p-7 md:p-9 transition-all duration-500 hover:border-glass-border/60 hover:shadow-[0_8px_48px_0_rgba(139,92,246,0.08)];
+}
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: var(--atmosphere-bg);
+  transition: background 0.5s ease;
+}
+
+:root {
+  --atmosphere-bg: 
+    radial-gradient(circle at 0% 0%, rgba(255, 127, 80, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(44, 51, 51, 0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #2c3333 0%, #1a1e1e 100%);
+}
+
+[data-theme="light"] {
+  --atmosphere-bg:
+    radial-gradient(circle at 0% 0%, rgba(186, 230, 253, 0.4) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(224, 242, 254, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, #f0f9ff 0%, #bae6fd 100%);
+}
+
+.animate-in {
+  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string", "description": "Base64 encoded profile picture or image URL" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "budget": { "type": "number" },
+        "theme": { "type": "string", "enum": ["light", "dark"] }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial transaction record",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "category": { "type": "string" },
+        "customCategory": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "description": { "type": "string" },
+        "linkedIncomeId": { "type": "string", "description": "ID of the associated income transaction" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "amount", "type", "category", "date", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User private profile and settings"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Individual transaction records"
+    }
+  }
+}
